@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperFrog</title>
+    <style>
+        body{
+            font-family: sans-serif;
+        }
+        #logo{
+            max-width: 10%;
+            padding: 0 0 0 35px;
+        }
+        .Copyright{
+            color: white;
+            background-color: #4B0082;
+            padding: 10px;
+        }
+        .Copyright2{
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        .main{
+            background-color: lightgray;
+            max-width: 75%;
+            margin: auto;
+            padding: 35px 0 0 0;
+        }
+        .Title{
+            color:#404040;
+            font-size: 36px;
+        }
+
+        .Info{
+            padding: 20px 0 20px 0px;
+        }
+
+        .Info2{
+            padding: 20px 0 20px 40px;
+        }
+
+        .header{
+            border: black solid;
+            border-width: 0 0 4px 0;
+        }
+
+        .nav{
+            border: solid rgb(75, 0, 130);
+            border-width: 0 0 4px 0;
+            padding: 10px 0 10px 55px;
+            font-size: 36px;
+            color: #404040;
+        }
+
+        .tbl{
+            border: 1px solid black;
+            max-width: 80%;
+            margin: auto;
+        }
+
+        .money{
+            float: right;
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .dbutton{
+            background-color: #4B0082;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown{
+            float: right;
+        }
+
+        .dropdown-content{
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a{
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover{
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content{
+            display: block;
+        }
+
+        .dropdown:hover .dbutton{
+            background-color: #4B0082;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="imgs/logo.jpg" alt="TCU logo" id="logo">
+        <div class="dropdown">
+            <button class="dbutton">Menu</button>
+            <div class="dropdown-content">
+                <a href="#">Home</a>
+                <a href="#">Available Dates</a>
+                <a href="#">Terms and Conditions</a>
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        SuperFrog Scheduler
+    </div>
+    <div class="main">
+        <div class="Title">Terms & Conditions</div>
+        <div class="Info">
+            <ul>
+                <li>*Requests must be submitted at least 14 days prior to event date via our online booking system.</li>
+                <li>*Prices are based on a 1 hour appearance - Additional fees may apply if more than one hour.</li>
+                <li>*ALL appearances are paid. We do not offer any free appearances.</li>
+            </ul>
+        </div>
+        <div class="Title">Spirit Appearance Fees</div>
+        <div class="Info2">
+            General Appearances - Rates Per Appearance (All events outside of a TCU Athletic match are paid appearances.
+            Mascot times will be determined by type of event, please contact office for more details.)
+        </div>
+
+
+        <div class="tbl">*30 minute SuperFrog appearance Flat Fee <span class="money">$75</span></div>
+        <div class="tbl"><b>Texas Christian University On Campus</b></div>
+        <div class="tbl">SuperFrog <span class="money">$100</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squal Members <span class="money">$100</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$150</span></div>
+        <div class="tbl"><b>Public Schools or Non-Profit</b></div>
+        <div class="tbl">SuperFrog <span class="money">$100</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squad Members <span class="money">$100</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$150</span></div>
+        <div class="tbl"><b>Private or Residential</b></div>
+        <div class="tbl">SuperFrog <span class="money">$175</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squad Members <span class="money">$175</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$200</span></div>
+
+
+        <div class="Info2">
+            DAY BEFORE GAME DAY - Rates Per appearance(Maximum of 1 hour appearances for Spirit Squads.
+            Appearance location must be within 10 miles from TCU.)
+        </div>
+
+
+        <div class="tbl">*30 minute SuperFrog appearance Flat Fee <span class="money">$150</span></div>
+        <div class="tbl"><b>Texas Christian University On Campus</b></div>
+        <div class="tbl">SuperFrog <span class="money">$200</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squal Members <span class="money">$150</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$200</span></div>
+        <div class="tbl"><b>Public Schools or Non-Profit</b></div>
+        <div class="tbl">SuperFrog <span class="money">$200</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squad Members <span class="money">$150</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$200</span></div>
+        <div class="tbl"><b>Private or Residential</b></div>
+        <div class="tbl">SuperFrog <span class="money">$250</span></div>
+        <div class="tbl">Small Group of 2-3 Spirit Squad Members <span class="money">$200</span></div>
+        <div class="tbl">Large Group of 4-6 Spirit Squad Members <span class="money">$250</span></div>
+
+
+        <div class="Info2">
+            ON GAME DAYS - Appearances will not be accepted. We appreciate your understanding and apologize for any inconvenience.
+        </div>
+        <div class="Title">General Terms:</div>
+        <div class="Info">
+            <ul>
+                <li>Requests must be submitted at least 14 days prior to event date</li>
+                <li>TCU has until 5 days before the date of the appearance to accept or decline</li>
+                <li>Prices are based on a 1 hour event</li>
+                <li>Additional fees may apply if more than one hour</li>
+                <li>Appearances are only available in the DFW area</li>
+                <li>The SuperFrog suit will not be rented out to a third party</li>
+                <li>Due to university rules, TCU Spirit will not make appearances during study days,
+                    finals week, or major holidays including, but not limited to, New Years Eve and Day,
+                    MLK Day, 4th of July, Thanksgiving Day, Christmas Eve or Day.
+                </li>
+            </ul>
+        </div>
+        <div class="Title">Contact Terms:</div>
+        <div class="Info">
+            <ul>
+                <li>Unless otherwise specified, the contact provided and their information
+                    will also serve as our Spirit member's point-of-contact on the date of the event
+                </li>
+                <li>List the address and all other necessary information on the booking site</li>
+            </ul>
+        </div>
+        <div class="Title">Event terms:</div>
+        <div class="Info">
+            <ul>
+                <li>Visit <a href="http://superfrorg.bookedscheduler.com" style="color: blue;">Super Frog Scheduler</a>to see our current schedule
+                and book your apearance request</li>
+                <li>Submission of a request does not guarantee the event will be accepted. TCu Spirit has until 5 days prior
+                    the date of the event to accept or decline a request.
+                </li>
+                <li>Even after an event is confirmed, it is still subjected to immediate cancellation due to
+                    a TCU Athletic Department function, weather, or an emergency. Immediate notice will be
+                    given in the event of cancellation.
+                </li>
+            </ul>
+        </div>
+        <div class="Title">Transportation Terms:</div>
+        <div class="Info">
+            <ul>
+                <li>Must include mileage if location is more than 2 miles from TCU and include any parking fees/expenses</li>
+                <li>If more than 2 miles from TCU, a $0.75 per mile transportation fee will be included in the appearance total</li>
+                <li>6+ Spirit Squad members will require transporation to be booked to and from Fort Worth and paid for by requestor</li>
+            </ul>
+        </div>
+        <div class="Title">Payment Terms:</div>
+        <div class="Info">
+            <ul>
+                <li>All appearances are paid. We do not offer volunteer appearances</li>
+                <li>Payment should be submitted a minimum of 24 hours prior to event <b>or it will be cancelled.</b>
+                </li>
+                <li>You will be given a link for payment via credit card upon approval of your appearance through email.</li>
+            </ul>
+        </div>
+        </div>
+    <div class="Copyright">
+        <div class="Copyright2">
+            <a href="#">Work at TCU</a> / <a href="#">Accessibility</a> / <a href="#">Notice of Nondiscrimination</a> / <a href="#">Title IX</a> / <a href="#">Legal Disclosures</a> / <a href="#">Privacy</a>
+        </div>
+        <div class="Copyright2">All content &copy; 2019 <b>Texas Christian University</b>.All rights reserved.</div>
+        <div class="Copyright2" style="border: solid white; border-width: 2px 0 0 0">
+            Texas Christian University is accredited by the Southern Association of Colleges and Schools Commission on Colleges to award baccalaureate, masters, and doctoral degrees. 
+            Contact the Southern Association of Colleges and Schools Commission on Colleges at 1866 Southern Lane, Decatur, Georgia 30033-4097 or call 404-679-4500 for questions
+            about the accreditation of Texas Christian University.
+    </div>
+    </div>
+</body>
+</html>
