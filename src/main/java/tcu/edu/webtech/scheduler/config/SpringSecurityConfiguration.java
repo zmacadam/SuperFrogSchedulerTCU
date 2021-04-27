@@ -37,7 +37,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true")
                 .usernameParameter("user_name")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/scheduler.html")
+                .defaultSuccessUrl("/default")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).and().exceptionHandling();

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduler</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/terms.css}">
+    <link rel="stylesheet" href="css/scheduler.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="header">
+    <img src="imgs/logo.jpg" alt="TCU logo" id="logo">
+    <div class="dropdown" style="float:right; margin-right: 7%; margin-top: 1.5%;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" th:href="@{/default}">Home</a>
+            <a class="dropdown-item" th:href="@{/terms}">Terms and Conditions</a>
+        </div>
+    </div>
+</div>
+<div class="box-2">
+
+    <!--    <form th:action="@{/logout}" method="get">-->
+    <!--        <button class="btn btn-md btn-danger btn-block" name="registration"-->
+    <!--                type="Submit">Logout-->
+    <!--        </button>-->
+    <!--    </form>-->
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span th:utext="${welcome}"></span>
+            </div>
+
+            <button class="tablink" id="request-tab" onclick="openPage('request', this, '#337ab7')">Request a SuperFrog!</button>
+            <button class="tablink" id="requests-tab" onclick="openPage('requests', this, '#337ab7')">View your Requests</button>
+            <button class="tablink" id="customer-tab" onclick="openPage('customer', this, '#337ab7')">Edit User Details</button>
+
+            <div id="request" class="tabcontent">
+                <div class="center-table">
+                    <form th:action="@{/newRequest}" th:method="PUT" th:object="${request}" role="form">
+                        <h2 class="sr-only">Login Form</h2>
+                        <div class="form-group">
+                            <input type="date" id="date" name="date" placeholder="Date of Request" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" id="time" placeholder="Time of Request" name="time" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Occasion of Request" id="occasion" name="occasion" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" placeholder="Miles from TCU Campus" id="miles" name="miles" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" name="Submit" type="Submit">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id ="requests" class="tabcontent">
+                <p>
+                    These are all the requests made by you:
+                </p>
+                <div class="center-table">
+                    <table id="requestTable" class="table table-striped" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Occasion</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="request: ${requests}">
+                            <td class="customerFirst"><p th:text="${request?.getDate()}"></p></td>
+                            <td class="customerLast"><p th:text="${request?.getTime()}"></p></td>
+                            <td class="customerUser"><p th:text="${request?.getOccasion()}"></p></td>
+                            <td class="customerEmail"><p th:text="${request?.getStatus()}"></p></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id ="customer" class="tabcontent">
+                <div class="center-table">
+                    <form  th:object="${user}" th:action="@{/updateUser/{id}(id=${user.getId()})}" th:method="PUT" >
+                        <h2>Update User Details</h2>
+                        <div class="form-group">
+                            First Name: <input type="text" id="first" name="firstname" th:value="${user.getFirstname()}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Last Name: <input type="text" id="last" th:value="${user.getLastname()}" name="lastname" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Email: <input type="email" id="email" th:value="${user.getEmail()}" name="email" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Age: <input type="number" id="age" th:value="${user.getAge()}" name="age" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" name="Submit" type="Submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#requestTable").DataTable({
+            "pageLength": 10,
+            "lengthChange": false,
+            "searching": false
+        });
+    });
+
+    window.onload = function() {
+        let tab = document.getElementById("request-tab");
+        tab.style.display = "block";
+        tab.style.backgroundColor = "#337ab7";
+        tab.click();
+    };
+
+    function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+    }
+</script>

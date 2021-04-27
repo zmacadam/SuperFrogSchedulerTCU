@@ -25,9 +25,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(Sort.by("firstname").ascending());
     }
 
+    public List<User> findByRole(String role) {return userRepository.findAllByRole(role); }
+
     public User findById(Integer id) {
         return userRepository.findById(id).get();
     }
+
+    public User findByEmail(String email) { return userRepository.findByEmail(email); }
 
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -44,7 +48,8 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {   return userRepository.findByUsername(username); }
 
-    public User findByPhonenumber(String phoneNumber) { return userRepository.findByPhoneNumber(phoneNumber); }
+    public List<User> findByRoleAndEnabled(String role) { return userRepository.findAllByRoleAndEnabledTrue(role); }
+
 
 
 

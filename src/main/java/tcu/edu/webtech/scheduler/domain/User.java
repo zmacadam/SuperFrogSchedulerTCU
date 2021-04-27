@@ -17,16 +17,16 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String phoneNumber;
     private String email;
 
     private String firstname;
     private String lastname;
     private boolean enabled;
-    private String roles;
+    private String role;
     private Integer age;
 
     public String getFullName() {
         return this.firstname + " " + this.lastname;
     }
+
 }

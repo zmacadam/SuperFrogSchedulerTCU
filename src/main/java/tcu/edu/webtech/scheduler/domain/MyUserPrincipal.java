@@ -16,7 +16,7 @@ public class MyUserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // convert string roles from the user to a list of granted authroties
-        this.authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRoles());
+        this.authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRole());
         return this.authorityList;
     }
 
