@@ -68,6 +68,8 @@
                     <th:block th:replace="_modals :: modal('editRequest')">modal</th:block>
                     <th:block th:replace="_modals :: modal('assignSuper')">modal</th:block>
                 </div>
+                <button type="button" class="btn btn-primary downloadReport" data-toggle="modal" data-target="#downloadReport">Download Request Report</button>
+                <th:block th:replace="_modals :: modal('downloadReport')">modal</th:block>
             </div>
             <div id ="customer" class="tabcontent">
                 <div class="center-table" th:style="${customers != null ? 'display:block' : 'display:none'}">
@@ -191,6 +193,12 @@
             $.get("/modals/assignSuper/" + id, function(data) {
                 $('#assignSuper').find('.modal-body').html(data);
             })
+        });
+
+        $(document).on('show.bs.modal', '#downloadReport', function() {
+            $.get("/modals/downloadReport", function(data) {
+                $('#downloadReport').find('.modal-body').html(data);
+            });
         });
 
         $(".delete-customer").click(function() {

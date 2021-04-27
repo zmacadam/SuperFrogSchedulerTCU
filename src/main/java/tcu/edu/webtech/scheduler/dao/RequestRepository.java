@@ -11,5 +11,6 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     public List<Request> findAllByStatus(String status);
     public List<Request> findAllBySuperfrog(User user);
     public List<Request> findAllByStatusNot(String status);
+    public List<Request> findAllByDateBetween(String from, String to);
 
 }

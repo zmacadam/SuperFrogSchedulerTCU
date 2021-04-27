@@ -11,21 +11,22 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import tcu.edu.webtech.scheduler.domain.Request;
 import tcu.edu.webtech.scheduler.domain.User;
 
 public class UserExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<User> listUsers;
+    private List<Request> listRequests;
 
-    public UserExcelExporter(List<User> listUsers) {
-        this.listUsers = listUsers;
+    public UserExcelExporter(List<Request> listRequests) {
+        this.listRequests = listRequests;
         workbook = new XSSFWorkbook();
     }
 
 
     private void writeHeaderLine() {
-        sheet = workbook.createSheet("Users");
+        sheet = workbook.createSheet("Requests");
 
         Row row = sheet.createRow(0);
 
@@ -35,12 +36,13 @@ public class UserExcelExporter {
         font.setFontHeight(16);
         style.setFont(font);
 
-        createCell(row, 0, "User ID", style);
-        createCell(row, 1, "E-mail", style);
-        createCell(row, 2, "Full Name", style);
-        createCell(row, 3, "Roles", style);
-        createCell(row, 4, "Enabled", style);
-
+        createCell(row, 0, "Date", style);
+        createCell(row, 1, "Time", style);
+        createCell(row, 2, "Occasion", style);
+        createCell(row, 3, "Distance", style);
+        createCell(row, 4, "Status", style);
+        createCell(row, 5, "Customer Username", style);
+        createCell(row, 6, "SuperFrog Username", style);
     }
 
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -64,15 +66,17 @@ public class UserExcelExporter {
         font.setFontHeight(14);
         style.setFont(font);
 
-        for (User user : listUsers) {
+        for (Request request : listRequests) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
 
-            createCell(row, columnCount++, user.getId(), style);
-            createCell(row, columnCount++, user.getEmail(), style);
-            createCell(row, columnCount++, user.getFullName(), style);
-            createCell(row, columnCount++, user.getRole().toString(), style);
-            createCell(row, columnCount++, user.isEnabled(), style);
+            createCell(row, columnCount++, request.getDate(), style);
+            createCell(row, columnCount++, request.getTime(), style);
+            createCell(row, columnCount++, request.getOccasion(), style);
+            createCell(row, columnCount++, request.getMiles(), style);
+            createCell(row, columnCount++, request.getStatus(), style);
+            createCell(row, columnCount++, request.getCustomer().getUsername(), style);
+            createCell(row, columnCount++, request.getSuperfrog() != null ? request.getSuperfrog().getUsername() : "UNASSIGNED", style);
 
         }
     }

@@ -110,7 +110,7 @@
             let user = $('.assignSuperFrog').attr("data-super_id");
             $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
                 $('#assignSuper').find('.modal-body').html(data);
-            })
+            });
         });
 
         $(document).on('show.bs.modal', '#assignSuper', function() {
@@ -118,14 +118,14 @@
             let user = $('.assignSuperFrog').attr("data-super_id");
             $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
                 $('#assignSuper').find('.modal-body').html(data);
-            })
+            });
         });
 
         $(document).on('show.bs.modal', '#completeAppearance', function() {
             let req = $('.completeAppearance').attr("data-req_id");
             $.get("/modals/completeAppearance/" + req, function(data) {
                 $('#completeAppearance').find('.modal-body').html(data);
-            })
+            });
         });
     });
 

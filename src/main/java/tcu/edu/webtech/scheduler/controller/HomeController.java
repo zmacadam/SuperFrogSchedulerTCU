@@ -129,19 +129,19 @@ public class HomeController {
         return defaultAfterLogin(authentication);
     }
 
-    @GetMapping("/exportUsers")
-    public void exportToExcel(HttpServletResponse response) throws IOException {
+    @GetMapping("/downloadReport")
+    public void exportToExcel(@RequestParam("from") String from, @RequestParam("to") String to, HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=Requests_From_" + from + "_To_" + to + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        List<User> listUsers = userService.findAll();
+        List<Request> listRequest = requestService.findBetween(from, to);
 
-        UserExcelExporter excelExporter = new UserExcelExporter(listUsers);
+        UserExcelExporter excelExporter = new UserExcelExporter(listRequest);
 
         excelExporter.export(response);
     }

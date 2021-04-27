@@ -11,20 +11,26 @@
 </head>
 
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Signup For Appearance</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Download Report</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div>
-    <div th:if="${error == null}">
-        <form method="POST" th:action="@{/selfSignUp/{requestId}/{superId}(requestId=${request.getId()}, superId=${superFrog.getId()})}">
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-block">Signup For Request</button>
-            </div>
-        </form>
-    </div>
-    <div th:if="${error != null}">
-        <p th:text="${error}"></p>
-    </div>
+    <p>
+        Enter Date Range of Requests to Download
+    </p>
+    <form method="GET" th:action="@{/downloadReport}">
+        <div class="form-group">
+            <p>Start Date:</p>
+            <input type="date" id="from" name="from" placeholder="Start Date" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <p>End Date:</p>
+            <input type="date" id="to" name="to" placeholder="End Data" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block">Download</button>
+        </div>
+    </form>
 </div>

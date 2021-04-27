@@ -86,4 +86,11 @@ public class ModalController {
         modelAndView.setViewName("completeAppearance");
         return modelAndView;
     }
+
+    @GetMapping("downloadReport")
+    public ModelAndView downloadReport() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("downloadReport");
+        return modelAndView;
+    }
 }
