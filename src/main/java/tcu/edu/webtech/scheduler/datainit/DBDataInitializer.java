@@ -59,14 +59,23 @@ public class DBDataInitializer implements CommandLineRunner {
             customer.setPassword("password" + i);
             userService.save(customer);
 
-            final Request request = new Request();
-            request.setStatus("PENDING");
-            request.setCustomer(customer);
-            request.setDate("2021-04-29");
-            request.setTime("09:00");
-            request.setMiles(20);
-            request.setOccasion("Wedding");
-            requestService.save(request);
+            final Request request1 = new Request();
+            request1.setStatus("PENDING");
+            request1.setCustomer(customer);
+            request1.setDate("2021-04-29");
+            request1.setTime("09:00");
+            request1.setMiles(20);
+            request1.setOccasion("Wedding");
+            requestService.save(request1);
+
+            final Request request2 = new Request();
+            request2.setStatus("APPROVED");
+            request2.setCustomer(customer);
+            request2.setDate("2021-04-30");
+            request2.setTime("12:00");
+            request2.setMiles(20);
+            request2.setOccasion("Birthday");
+            requestService.save(request2);
         }
     }
 }

@@ -44,19 +44,24 @@ public class HomeController {
             modelAndView.setViewName("director/home");
             List<User> customers = userService.findByRole("CUSTOMER");
             List<User> superfrogs = userService.findByRole("SUPERFROG");
-            List<Request> requests = requestService.findAll();
+            List<Request> requests = requestService.findUnfinishedRequests();
             modelAndView.addObject("customers", customers);
             modelAndView.addObject("superfrogs", superfrogs);
             modelAndView.addObject("requests", requests);
             modelAndView.addObject("welcome", "Welcome Back Spirit Director!");
         } else if (role.equals("SUPERFROG")) {
             modelAndView.setViewName("superfrog/home");
+            List<Request> requests = requestService.findByAssignedAndSuperFrog(user);
+            modelAndView.addObject("requests", requests);
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("welcome", "Welcome Back " + user.getFullName() + "!");
         } else {
             modelAndView.setViewName("customer/home");
             modelAndView.addObject("request", new Request());
             List<Request> requests = requestService.findByCustomerID(user);
             modelAndView.addObject("requests", requests);
             modelAndView.addObject("user", user);
+            modelAndView.addObject("welcome", "Welcome Back " + user.getFullName() + "!");
         }
         return modelAndView;
     }
@@ -198,6 +203,24 @@ public class HomeController {
         User superFrog = userService.findByUsername(username);
         request.setSuperfrog(superFrog);
         request.setStatus("ASSIGNED");
+        requestService.save(request);
+        return defaultAfterLogin(authentication);
+    }
+
+    @PostMapping("/selfSignUp/{requestId}/{superFrogId}")
+    public ModelAndView selfSignUp(@PathVariable("requestId") Integer reqId, @PathVariable("superFrogId") Integer superId, Authentication authentication) {
+        Request request = requestService.findById(reqId);
+        User superFrog = userService.findById(superId);
+        request.setSuperfrog(superFrog);
+        request.setStatus("ASSIGNED");
+        requestService.save(request);
+        return defaultAfterLogin(authentication);
+    }
+
+    @PostMapping("/completeAppearance/{requestId}")
+    public ModelAndView completeAppearance(@PathVariable("requestId") Integer reqId, Authentication authentication) {
+        Request request = requestService.findById(reqId);
+        request.setStatus("FINISHED");
         requestService.save(request);
         return defaultAfterLogin(authentication);
     }

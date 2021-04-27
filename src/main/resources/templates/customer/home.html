@@ -106,6 +106,10 @@
                             <button class="btn btn-primary btn-block" name="Submit" type="Submit">Update</button>
                         </div>
                     </form>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" onclick="sendEmail()">Reset Password</button>
+                        <p class="center" id="reset" style="display: none">An email has been sent to you to reset your password.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,7 +126,7 @@
 <script>
     $(document).ready(function () {
         $("#requestTable").DataTable({
-            "pageLength": 10,
+            "pageLength": 5,
             "lengthChange": false,
             "searching": false
         });
@@ -154,5 +158,9 @@
 
         // Add the specific color to the button used to open the tab content
         elmnt.style.backgroundColor = color;
+    }
+
+    function sendEmail() {
+        document.getElementById('reset').style.display = "block";
     }
 </script>

@@ -54,10 +54,36 @@ public class ModalController {
     public ModelAndView assignSuper(@PathVariable("id") Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         Request request = requestService.findById(id);
-        List<User> supers = userService.findByRole("SUPERFROG");
+        List<User> supers = userService.findByRoleAndEnabled("SUPERFROG");
+        supers = userService.checkDate(request.getDate(), supers);
         modelAndView.addObject("request", request);
         modelAndView.addObject("supers", supers);
         modelAndView.setViewName("assignSuper");
+        return modelAndView;
+    }
+
+    @GetMapping("selfAssign/{requestId}/{superId}")
+    public ModelAndView selfAssign(@PathVariable("requestId") Integer requestId, @PathVariable("superId") Integer superFrogId) {
+        ModelAndView modelAndView = new ModelAndView();
+        Request request = requestService.findById(requestId);
+        User superFrog = userService.findById(superFrogId);
+        boolean valid = userService.checkSingleDate(request.getDate(), superFrog);
+        if (valid) {
+            modelAndView.addObject("request", request);
+            modelAndView.addObject("superFrog", superFrog);
+        } else {
+            modelAndView.addObject("error", "You already have an assignment this week.");
+        }
+        modelAndView.setViewName("selfAssign");
+        return modelAndView;
+    }
+
+    @GetMapping("completeAppearance/{requestId}")
+    public ModelAndView completeAppearance(@PathVariable("requestId") Integer requestId) {
+        ModelAndView modelAndView = new ModelAndView();
+        Request request = requestService.findById(requestId);
+        modelAndView.addObject("request", request);
+        modelAndView.setViewName("completeAppearance");
         return modelAndView;
     }
 }

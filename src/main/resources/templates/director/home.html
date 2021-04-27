@@ -56,9 +56,9 @@
                             <td class="distance"><p th:text="${request.getMiles()}"></p></td>
                             <td>
                                 <button type="button" th:if="${request.status.equals('PENDING')}" class="btn btn-primary" id="decideRequest" style="margin-bottom: 1%;" data-toggle="modal" data-target="#editRequest" th:attr="data-el_id=${request.getId()}" th:text="${request.getStatus()}"/>
-                                <button type="button" th:if="${request.status.equals('APPROVED')}" class="btn btn-success" id="assignSuperFrog" style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-el_id=${request.getId()}" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('APPROVED')}" class="btn btn-success assignSuperFrog"  style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-el_id=${request.getId()}" th:text="${request.getStatus()}"></button>
                                 <button type="button" th:if="${request.status.equals('REJECTED')}" class="btn btn-danger" style="margin-bottom: 1%;" th:text="${request.getStatus()}"></button>
-                                <button type="button" th:if="${request.status.equals('ASSIGNED')}" class="btn btn-outline-success" style="margin-bottom: 1%;" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('ASSIGNED')}" class="btn btn-outline-success assignSuperFrog" style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-el_id=${request.getId()}" th:text="${request.getStatus()}"></button>
                             </td>
                             <td>
                                 <button  th:if="${request.status.equals('PENDING')}" class="btn btn-primary edit-request" th:attr="data-el_id=${request.getId()}">Edit</button>
@@ -157,17 +157,17 @@
 
     $(document).ready(function () {
         $("#superfrogTable").DataTable( {
-            "pageLength": 10,
+            "pageLength": 5,
             "lengthChange": false,
             "searching": false
         });
         $('#customerTable').DataTable( {
-            "pageLength": 10,
+            "pageLength": 5,
             "lengthChange": false,
             "searching": false
         });
         $('#requestTable').DataTable( {
-            "pageLength": 10,
+            "pageLength": 5,
             "lengthChange": false,
             "searching": false
         });
@@ -187,11 +187,11 @@
         });
 
         $(document).on('show.bs.modal', '#assignSuper', function() {
-            let id = $('#assignSuperFrog').attr("data-el_id");
+            let id = $('.assignSuperFrog').attr("data-el_id");
             $.get("/modals/assignSuper/" + id, function(data) {
                 $('#assignSuper').find('.modal-body').html(data);
             })
-        })
+        });
 
         $(".delete-customer").click(function() {
             var id = $(this).attr("data-el_id");

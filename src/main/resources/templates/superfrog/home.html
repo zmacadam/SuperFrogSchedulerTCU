@@ -1,10 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en-us">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Scheduler</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/terms.css}">
+    <link rel="stylesheet" href="css/scheduler.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div class="header">
+    <img src="imgs/logo.jpg" alt="TCU logo" id="logo">
+</div>
+<div class="box-2">
 
-</body>
-</html>
+    <!--    <form th:action="@{/logout}" method="get">-->
+    <!--        <button class="btn btn-md btn-danger btn-block" name="registration"-->
+    <!--                type="Submit">Logout-->
+    <!--        </button>-->
+    <!--    </form>-->
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span th:utext="${welcome}"></span>
+            </div>
+
+            <button class="tablink-2" id="requests-tab" onclick="openPage('requests', this, '#337ab7')">View Approved Requests</button>
+            <button class="tablink-2" id="superfrog-tab" onclick="openPage('superfrog', this, '#337ab7')">Edit User Details</button>
+
+            <div id ="requests" class="tabcontent">
+                <p>
+                    Approved request available for sign-up:
+                </p>
+                <div class="center-table">
+                    <table id="requestTable" class="table table-striped" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Occasion</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="request: ${requests}">
+                            <td class="customerFirst"><p th:text="${request?.getDate()}"></p></td>
+                            <td class="customerLast"><p th:text="${request?.getTime()}"></p></td>
+                            <td class="customerUser"><p th:text="${request?.getOccasion()}"></p></td>
+                            <td>
+                                <button type="button" th:if="${request.status.equals('APPROVED')}" class="btn btn-success assignSuperFrog"  style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-req_id=${request.getId()}, data-super_id=${user.getId()}" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('ASSIGNED')}" class="btn btn-outline-success completeAppearance" style="margin-bottom: 1%;" data-toggle="modal" data-target="#completeAppearance" th:attr="data-req_id=${request.getId()}" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('FINISHED')}" class="btn btn-primary" style="margin-bottom: 1%;" th:text="${request.getStatus()}"></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <th:block th:replace="_modals :: modal('assignSuper')">modal</th:block>
+                    <th:block th:replace="_modals :: modal('completeAppearance')">modal</th:block>
+                </div>
+            </div>
+            <div id ="superfrog" class="tabcontent">
+                <div class="center-table">
+                    <form  th:object="${user}" th:action="@{/updateUser/{id}(id=${user.getId()})}" th:method="PUT" >
+                        <h2>Update User Details</h2>
+                        <div class="form-group">
+                            First Name: <input type="text" id="first" name="firstname" th:value="${user.getFirstname()}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Last Name: <input type="text" id="last" th:value="${user.getLastname()}" name="lastname" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Email: <input type="email" id="email" th:value="${user.getEmail()}" name="email" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            Age: <input type="number" id="age" th:value="${user.getAge()}" name="age" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" name="Submit" type="Submit">Update</button>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" onclick="sendEmail()">Reset Password</button>
+                        <p class="center" id="reset" style="display: none">An email has been sent to you to reset your password.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#requestTable").DataTable({
+            "pageLength": 5,
+            "lengthChange": false,
+            "searching": false
+        });
+
+        $(document).on('show.bs.modal', '#assignSuper', function() {
+            let req = $('.assignSuperFrog').attr("data-req_id");
+            let user = $('.assignSuperFrog').attr("data-super_id");
+            $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
+                $('#assignSuper').find('.modal-body').html(data);
+            })
+        });
+
+        $(document).on('show.bs.modal', '#assignSuper', function() {
+            let req = $('.assignSuperFrog').attr("data-req_id");
+            let user = $('.assignSuperFrog').attr("data-super_id");
+            $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
+                $('#assignSuper').find('.modal-body').html(data);
+            })
+        });
+
+        $(document).on('show.bs.modal', '#completeAppearance', function() {
+            let req = $('.completeAppearance').attr("data-req_id");
+            $.get("/modals/completeAppearance/" + req, function(data) {
+                $('#completeAppearance').find('.modal-body').html(data);
+            })
+        });
+    });
+
+    window.onload = function() {
+        let tab = document.getElementById("requests-tab");
+        tab.style.display = "block";
+        tab.style.backgroundColor = "#337ab7";
+        tab.click();
+    };
+
+    function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink-2");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+    }
+
+    function sendEmail() {
+        document.getElementById('reset').style.display = "block";
+    }
+</script>

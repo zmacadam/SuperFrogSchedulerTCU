@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
     public List<Request> findAllByCustomer(User user);
+    public List<Request> findAllByStatus(String status);
+    public List<Request> findAllBySuperfrog(User user);
+    public List<Request> findAllByStatusNot(String status);
 
 }
