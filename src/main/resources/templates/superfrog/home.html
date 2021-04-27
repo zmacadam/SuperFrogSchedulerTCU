@@ -50,8 +50,8 @@
                             <td class="customerLast"><p th:text="${request?.getTime()}"></p></td>
                             <td class="customerUser"><p th:text="${request?.getOccasion()}"></p></td>
                             <td>
-                                <button type="button" th:if="${request.status.equals('APPROVED')}" class="btn btn-success assignSuperFrog"  style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-req_id=${request.getId()}, data-super_id=${user.getId()}" th:text="${request.getStatus()}"></button>
-                                <button type="button" th:if="${request.status.equals('ASSIGNED')}" class="btn btn-outline-success completeAppearance" style="margin-bottom: 1%;" data-toggle="modal" data-target="#completeAppearance" th:attr="data-req_id=${request.getId()}" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('APPROVED')}" class="btn btn-success" th:id="assignSuperFrog + ${request.getId()}"  style="margin-bottom: 1%;" data-toggle="modal" data-target="#assignSuper" th:attr="data-req_id=${request.getId()}, data-super_id=${user.getId()}" th:text="${request.getStatus()}"></button>
+                                <button type="button" th:if="${request.status.equals('ASSIGNED')}" class="btn btn-outline-success" th:id="completeAppearance + ${request.getId()}" style="margin-bottom: 1%;" data-toggle="modal" data-target="#completeAppearance" th:attr="data-req_id=${request.getId()}" th:text="${request.getStatus()}"></button>
                                 <button type="button" th:if="${request.status.equals('FINISHED')}" class="btn btn-primary" style="margin-bottom: 1%;" th:text="${request.getStatus()}"></button>
                             </td>
                         </tr>
@@ -105,24 +105,16 @@
             "searching": false
         });
 
-        $(document).on('show.bs.modal', '#assignSuper', function() {
-            let req = $('.assignSuperFrog').attr("data-req_id");
-            let user = $('.assignSuperFrog').attr("data-super_id");
+        $(document).on('show.bs.modal', '#assignSuper', function(e) {
+            let req = $('#' + e.relatedTarget.id).attr("data-req_id");
+            let user = $('#' + e.relatedTarget.id).attr("data-super_id");
             $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
                 $('#assignSuper').find('.modal-body').html(data);
             });
         });
 
-        $(document).on('show.bs.modal', '#assignSuper', function() {
-            let req = $('.assignSuperFrog').attr("data-req_id");
-            let user = $('.assignSuperFrog').attr("data-super_id");
-            $.get("/modals/selfAssign/" + req + "/" + user, function(data) {
-                $('#assignSuper').find('.modal-body').html(data);
-            });
-        });
-
-        $(document).on('show.bs.modal', '#completeAppearance', function() {
-            let req = $('.completeAppearance').attr("data-req_id");
+        $(document).on('show.bs.modal', '#completeAppearance', function(e) {
+            let req = $('#' + e.relatedTarget.id).attr("data-req_id");
             $.get("/modals/completeAppearance/" + req, function(data) {
                 $('#completeAppearance').find('.modal-body').html(data);
             });

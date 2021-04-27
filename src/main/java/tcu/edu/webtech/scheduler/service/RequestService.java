@@ -34,7 +34,9 @@ public class RequestService {
 
     public List<Request> findUnfinishedRequests() { return requestRepository.findAllByStatusNot("FINISHED"); }
 
-    public List<Request> findBetween(String to, String from) { return requestRepository.findAllByDateBetween(from, to); }
+    public List<Request> findBetween(String to, String from) {
+        return requestRepository.findAllByDateLessThanEqualAndDateGreaterThanEqual(from, to);
+    }
 
     public List<Request> findByAssignedAndSuperFrog(User user) {
         return Stream.concat(requestRepository.findAllByStatus("APPROVED").stream(),

@@ -7,10 +7,10 @@ import tcu.edu.webtech.scheduler.domain.User;
 import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
-    public List<Request> findAllByCustomer(User user);
-    public List<Request> findAllByStatus(String status);
-    public List<Request> findAllBySuperfrog(User user);
-    public List<Request> findAllByStatusNot(String status);
-    public List<Request> findAllByDateBetween(String from, String to);
+    List<Request> findAllByCustomer(User user);
+    List<Request> findAllByStatus(String status);
+    List<Request> findAllBySuperfrog(User user);
+    List<Request> findAllByStatusNot(String status);
+    List<Request> findAllByDateLessThanEqualAndDateGreaterThanEqual(String from, String to);
 
 }
